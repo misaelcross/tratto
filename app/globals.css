@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .perfect-match-property {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .perfect-match-property:hover {
+    transform: translateY(-4px);
+  }
+  
+  .perfect-match-image {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .perfect-match-property:hover .perfect-match-image {
+    transform: scale(1.05);
+  }
+}

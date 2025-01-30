@@ -1,0 +1,96 @@
+'use client'
+
+import { Search } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { PropertyCard } from "@/components/property-card"
+import { CampaignBanner } from "@/components/campaign-banner"
+import { FinancialWidget } from "@/components/financial-widget"
+import { NetflixStyleCarousel } from "@/components/netflix-style-carousel"
+import { PropertyViewer } from "@/components/property-viewer"
+import { useState } from "react"
+
+// Propriedades em destaque no hero
+const heroProperties = [
+  {
+    id: 1,
+    title: "Cobertura Duplex com Vista Panorâmica",
+    price: "R$ 2.900.000",
+    image: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg",
+    location: "Jardins, São Paulo",
+    specs: "4 quartos • 4 vagas • 380m²",
+    score: 98
+  },
+  // ... outros imóveis
+]
+
+export default function HomePage() {
+  const [isViewerOpen, setIsViewerOpen] = useState(false)
+  const [selectedProperty, setSelectedProperty] = useState<typeof heroProperties[0] | null>(null)
+
+  const handlePropertyClick = (property: typeof heroProperties[0]) => {
+    setSelectedProperty(property)
+    setIsViewerOpen(true)
+  }
+
+  return (
+    <div className="space-y-12">
+      <PropertyViewer 
+        isOpen={isViewerOpen}
+        onClose={() => setIsViewerOpen(false)}
+        images={selectedProperty ? [selectedProperty.image] : []}
+      />
+
+      {/* Seção 1: Campanha Local */}
+      <section className="relative -mt-16">
+        <CampaignBanner
+          title="Verão Imobiliário 2025"
+          description="Aproveite condições especiais em imóveis selecionados"
+          imageUrl="https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg"
+          featuredProperties={heroProperties}
+        />
+      </section>
+
+      {/* Seção 2: Busca e Categorias */}
+      <section className="container mx-auto px-4 py-6 space-y-4">
+        {/* Barra de Busca */}
+        <div className="relative w-full">
+          <Input
+            type="search"
+            placeholder="Buscar..."
+            className="w-full pl-4 pr-20 py-6 rounded-full border-gray-100"
+          />
+          <Button
+            size="sm"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full px-6"
+          >
+            Buscar
+          </Button>
+        </div>
+
+        {/* Categorias */}
+        <div className="flex gap-3 overflow-x-auto pb-2">
+          {/* ... categorias ... */}
+        </div>
+      </section>
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {heroProperties.map((property) => (
+            <PropertyCard 
+              key={property.id} 
+              {...property}
+              onView={() => handlePropertyClick(property)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 space-y-12">
+        {/* ... outras seções ... */}
+      </div>
+    </div>
+  )
+}
