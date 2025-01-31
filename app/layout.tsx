@@ -30,16 +30,16 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className="h-full">
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "h-full bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-screen flex-col">
+          <div className="h-full flex flex-col">
             <Header />
             <main className="flex-1 pt-16">
               {children}

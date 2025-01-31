@@ -4,6 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import Link from 'next/link'
 
 // Imagens do Pexels que estamos usando no site
 const HERO_IMAGE = "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg"
@@ -51,9 +52,11 @@ export default function LandingPage() {
                         placeholder="Localização, Campinas" 
                         className="flex-1 h-12 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white focus:text-black"
                       />
-                      <Button className="h-12 bg-[#C5E99F] hover:bg-[#B5D98F] text-[#0A5351] font-medium">
-                        Buscar Imóveis
-                      </Button>
+                      <Link href="/buscar">
+                        <button className="inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 shadow-sm shadow-black/5 px-4 py-2 h-12 bg-[#C5E99F] hover:bg-[#B5D98F] text-[#0A5351] font-medium">
+                          Buscar Imóveis
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

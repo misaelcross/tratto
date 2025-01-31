@@ -209,18 +209,18 @@ export default function HomePage() {
         {/* Seção 2: Busca e Categorias */}
         <section className="container mx-auto px-4 py-6 space-y-4">
           {/* Barra de Busca */}
-          <div className="relative w-full">
+          <div className="relative">
             <Input
-              type="search"
-              placeholder="Buscar..."
-              className="w-full pl-4 pr-20 py-6 rounded-full border-gray-100"
+              type="text"
+              placeholder="Procure por um imóvel"
+              className="w-full pl-12 pr-24"
             />
-            <Button
-              size="sm"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full px-6"
-            >
-              Buscar
-            </Button>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Link href="/buscar">
+              <button className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-primary text-primary-foreground shadow-sm shadow-black/5 hover:bg-primary/90 h-8 text-xs absolute right-3 top-1/2 -translate-y-1/2 rounded-full px-6">
+                Buscar
+              </button>
+            </Link>
           </div>
 
           {/* Categorias */}
@@ -263,9 +263,11 @@ export default function HomePage() {
             <p className="text-muted-foreground mb-6">
               Preencha nosso formulário e deixe-nos ajudar a encontrar o imóvel perfeito para você
             </p>
-            <Button size="lg">
-              Preencher Formulário
-            </Button>
+            <Link href="/buscar">
+              <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-primary text-primary-foreground shadow-sm shadow-black/5 hover:bg-primary/90 h-10 rounded-lg px-8">
+                Preencher Formulário
+              </button>
+            </Link>
           </section>
 
           {/* Seção Financeira */}

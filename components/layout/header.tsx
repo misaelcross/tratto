@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import SignIn from "@/app/signin/page"
 import { cn } from "@/lib/utils"
@@ -48,6 +48,10 @@ const navigation = [
     path: "/",
   },
   {
+    label: "Imóveis",
+    path: "/imoveis",
+  },
+  {
     label: "Comprar",
     path: "/comprar",
   },
@@ -73,6 +77,13 @@ export default function Header() {
   const [notifications, setNotifications] = useState(initialNotifications)
   const { setTheme, theme } = useTheme()
   const isHome = pathname === '/' || pathname === '/landing'
+
+  // Fechar dropdowns quando mudar de rota
+  useEffect(() => {
+    setIsNotificationsOpen(false)
+    setIsUserMenuOpen(false)
+    setIsMenuOpen(false)
+  }, [pathname])
 
   const unreadCount = notifications.filter(n => !n.read).length
 

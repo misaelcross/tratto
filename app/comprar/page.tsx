@@ -1,21 +1,32 @@
 'use client'
 
 import Header from '@/components/layout/header'
-import { MessageSquare, Home, Bed, Bath, Car, Trophy, AlertCircle } from 'lucide-react'
+import { 
+  MessageSquare, 
+  Home, 
+  Bed, 
+  Bath, 
+  Car, 
+  Trophy, 
+  AlertCircle,
+  Heart
+} from 'lucide-react'
 import Image from 'next/image'
+import { MapView } from '@/components/map/map-view'
+import { PropertyCardCarousel } from '@/components/property-card-carousel'
+import { PropertyViewer } from '@/components/property-viewer'
+import { useState } from 'react'
 
 const properties = [
   {
     id: 1,
-    title: 'Apartamento Vila Mariana',
-    price: 'R$ 850.000',
-    image: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg',
-    score: 85,
-    desiredScore: 90,
-    missingPoints: [
-      { item: 'Piscina', points: 3 },
-      { item: 'Academia', points: 2 }
+    images: [
+      'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
+      'https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg',
+      'https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg'
     ],
+    price: 'R$ 850.000',
+    score: 920,
     details: {
       bedrooms: 3,
       bathrooms: 2,
@@ -25,81 +36,172 @@ const properties = [
   },
   {
     id: 2,
-    title: 'Apartamento Moema',
-    price: 'R$ 920.000',
-    image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg',
-    score: 95,
-    desiredScore: 90,
+    images: [
+      'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg',
+      'https://images.pexels.com/photos/1643385/pexels-photo-1643385.jpeg',
+      'https://images.pexels.com/photos/1643386/pexels-photo-1643386.jpeg'
+    ],
+    price: 'R$ 720.000',
+    score: 875,
+    details: {
+      bedrooms: 2,
+      bathrooms: 2,
+      parking: 1,
+      area: '98m²'
+    }
+  },
+  {
+    id: 3,
+    images: [
+      'https://images.pexels.com/photos/1876045/pexels-photo-1876045.jpeg',
+      'https://images.pexels.com/photos/1876046/pexels-photo-1876046.jpeg',
+      'https://images.pexels.com/photos/1876047/pexels-photo-1876047.jpeg'
+    ],
+    price: 'R$ 1.150.000',
+    score: 945,
+    details: {
+      bedrooms: 4,
+      bathrooms: 3,
+      parking: 2,
+      area: '180m²'
+    }
+  },
+  {
+    id: 4,
+    images: [
+      'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg',
+      'https://images.pexels.com/photos/1396123/pexels-photo-1396123.jpeg',
+      'https://images.pexels.com/photos/1396124/pexels-photo-1396124.jpeg'
+    ],
+    price: 'R$ 680.000',
+    score: 890,
+    details: {
+      bedrooms: 2,
+      bathrooms: 1,
+      parking: 1,
+      area: '85m²'
+    }
+  },
+  {
+    id: 5,
+    images: [
+      'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg',
+      'https://images.pexels.com/photos/2724750/pexels-photo-2724750.jpeg',
+      'https://images.pexels.com/photos/2724751/pexels-photo-2724751.jpeg'
+    ],
+    price: 'R$ 950.000',
+    score: 910,
     details: {
       bedrooms: 3,
       bathrooms: 2,
       parking: 2,
-      area: '130m²'
+      area: '145m²'
+    }
+  },
+  {
+    id: 6,
+    images: [
+      'https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg',
+      'https://images.pexels.com/photos/2089699/pexels-photo-2089699.jpeg',
+      'https://images.pexels.com/photos/2089700/pexels-photo-2089700.jpeg'
+    ],
+    price: 'R$ 790.000',
+    score: 865,
+    details: {
+      bedrooms: 3,
+      bathrooms: 2,
+      parking: 1,
+      area: '110m²'
+    }
+  },
+  {
+    id: 7,
+    images: [
+      'https://images.pexels.com/photos/2089696/pexels-photo-2089696.jpeg',
+      'https://images.pexels.com/photos/2089697/pexels-photo-2089697.jpeg',
+      'https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg'
+    ],
+    price: 'R$ 1.250.000',
+    score: 935,
+    details: {
+      bedrooms: 4,
+      bathrooms: 3,
+      parking: 2,
+      area: '200m²'
+    }
+  },
+  {
+    id: 8,
+    images: [
+      'https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg',
+      'https://images.pexels.com/photos/2724747/pexels-photo-2724747.jpeg',
+      'https://images.pexels.com/photos/2724746/pexels-photo-2724746.jpeg'
+    ],
+    price: 'R$ 620.000',
+    score: 880,
+    details: {
+      bedrooms: 2,
+      bathrooms: 1,
+      parking: 1,
+      area: '75m²'
     }
   }
-]
+];
 
 export default function ComprarPage() {
+  const [selectedProperty, setSelectedProperty] = useState<number | null>(null)
+
+  const handlePropertyView = (propertyId: number) => {
+    setSelectedProperty(propertyId)
+  }
+
+  const handleCloseViewer = () => {
+    setSelectedProperty(null)
+  }
+
+  const selectedPropertyData = properties.find(p => p.id === selectedProperty)
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="pt-8">
-        <div className="container mx-auto px-4">
-          <div className="flex gap-6">
-            {/* Coluna do Mapa (40%) */}
-            <div className="w-[40%] sticky top-8 h-[calc(100vh-8rem)] bg-white rounded-xl shadow-sm p-4">
-              <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
-                <span className="text-gray-500 font-medium">Mapa</span>
-              </div>
-            </div>
+      <main className="flex">
+        {/* Coluna do Mapa (50%) */}
+        <div className="w-1/2 fixed left-0 h-[calc(100vh-4rem)] bg-white shadow-sm">
+          <MapView />
+        </div>
 
-            {/* Coluna dos Imóveis (60%) */}
-            <div className="w-[60%] space-y-6">
+        {/* Coluna do Conteúdo (50%) */}
+        <div className="w-1/2 ml-[50%] pt-8">
+          <div className="container mx-auto px-4">
+            {/* Grid de Imóveis */}
+            <div className="grid grid-cols-2 gap-6">
               {properties.map(property => (
                 <div key={property.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                  <div className="aspect-[16/9] relative bg-gray-200">
-                    <Image
-                      src={property.image}
-                      alt={property.title}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="relative">
+                    <PropertyCardCarousel images={property.images} onPropertyView={handlePropertyView} propertyId={property.id} />
+                    <div className="absolute top-3 left-3">
+                      <button className="p-2 bg-white/80 hover:bg-white rounded-full">
+                        <Heart className="h-6 w-6" />
+                      </button>
+                    </div>
+                    <div className={`absolute top-3 right-3 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2 text-white ${
+                      property.score >= 900 
+                        ? 'bg-green-900/25' 
+                        : 'bg-yellow-900/25'
+                    }`}>
+                      <span>Score {property.score}</span>
+                      {property.score < 900 && (
+                        <AlertCircle className="size-4" />
+                      )}
+                    </div>
                   </div>
                   
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-semibold">{property.title}</h3>
-                        <p className="text-2xl font-bold text-green-500 mt-1">{property.price}</p>
-                      </div>
-                      
-                      {/* Score Indicator */}
-                      <div className="text-right">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Trophy className="size-5 text-green-500" />
-                          <span className="font-medium">
-                            Score: {property.score}/{property.desiredScore}
-                          </span>
-                        </div>
-                        {property.score < property.desiredScore && property.missingPoints && (
-                          <div className="bg-red-50 rounded-lg p-3">
-                            <div className="flex items-center gap-2 text-red-600 text-sm mb-2">
-                              <AlertCircle className="size-4" />
-                              <span className="font-medium">Pontos faltantes:</span>
-                            </div>
-                            {property.missingPoints.map((point, index) => (
-                              <p key={index} className="text-sm text-red-600">
-                                {point.item}: {point.points} pontos
-                              </p>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                  <div className="p-4">
+                    <p className="text-[1.2rem] font-bold text-black">{property.price}</p>
 
                     {/* Property Details */}
-                    <div className="grid grid-cols-4 gap-4 py-4 border-t">
+                    <div className="grid grid-cols-2 gap-4 py-2">
                       <div className="flex items-center gap-2">
                         <Bed className="size-5 text-gray-400" />
                         <span className="text-gray-900">{property.details.bedrooms} quartos</span>
@@ -117,17 +219,6 @@ export default function ComprarPage() {
                         <span className="text-gray-900">{property.details.area}</span>
                       </div>
                     </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-4 mt-6">
-                      <button className="flex-1 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600">
-                        Agendar Visita
-                      </button>
-                      <button className="flex items-center gap-2 px-6 py-3 rounded-lg border border-black text-black hover:bg-gray-50">
-                        <MessageSquare className="size-5 text-black" />
-                        Chat
-                      </button>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -135,6 +226,13 @@ export default function ComprarPage() {
           </div>
         </div>
       </main>
+      {selectedPropertyData && (
+        <PropertyViewer
+          isOpen={selectedProperty !== null}
+          onClose={handleCloseViewer}
+          images={selectedPropertyData.images}
+        />
+      )}
     </div>
   )
 }

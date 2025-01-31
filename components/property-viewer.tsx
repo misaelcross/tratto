@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { PropertyImageCarousel } from './property-image-carousel'
+import { PropertyMapView } from '@/components/map/property-map-view'
 
 interface PropertyViewerProps {
   isOpen: boolean
@@ -315,7 +316,7 @@ export function PropertyViewer({ isOpen, onClose, images }: PropertyViewerProps)
                 </p>
 
                 {/* Grid de Avaliações */}
-                <div className="w-full grid grid-cols-2 md:grid-cols-6 justify-between gap-8">
+                <div className="w-full grid grid-cols-1 md:grid-cols-6 justify-between gap-8">
                   {/* Avaliação Geral */}
                   <div className="flex flex-col items-start">
                     <div className="text-sm font-medium mb-1">Avaliação geral</div>
@@ -421,7 +422,7 @@ export function PropertyViewer({ isOpen, onClose, images }: PropertyViewerProps)
             {/* Seção: Mapa */}
             <div className="py-12 border-t border-gray-200">
               <h3 className="text-2xl font-semibold mb-8">Localização</h3>
-              <div className="h-[400px] bg-gray-100 rounded-lg" />
+              <PropertyMapView />
             </div>
 
             {/* Seção: Vendedor */}
