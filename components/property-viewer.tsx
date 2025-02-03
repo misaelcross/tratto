@@ -470,16 +470,16 @@ export function PropertyViewer({ isOpen, onClose, images }: PropertyViewerProps)
                           <span>Atua no mercado desde 2010</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Users className="h-5 w-5 text-gray-600" />
-                          <span>Formação: Administração e Negócios</span>
+                          <ClipboardCheck className="h-5 w-5 text-gray-600" />
+                          <span>Registro CRECI: 123456-SP</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <MapPin className="h-5 w-5 text-gray-600" />
-                          <span>Nasceu na década de 80</span>
+                          <Home className="h-5 w-5 text-gray-600" />
+                          <span>Especialização: Imóveis Residenciais</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <Check className="h-5 w-5 text-gray-600" />
-                          <span>Onde estudei: Faculdade Estácio</span>
+                          <span>Disponível para visitas agendadas</span>
                         </div>
                       </div>
                     </div>
@@ -488,9 +488,9 @@ export function PropertyViewer({ isOpen, onClose, images }: PropertyViewerProps)
 
                 {/* Coluna Direita */}
                 <div className="flex-1">
-                  <div className="text-xl font-semibold mb-4">Marcelo é Superhost</div>
+                  <div className="text-xl font-semibold mb-4">Marcelo é Especialista</div>
                   <div className="text-gray-600 mb-8">
-                    Corretores Superhost são profissionais experientes, com ótimas avaliações e que se destacam pelo compromisso em oferecer negociações transparentes e atendimento excepcional aos compradores.
+                    Corretores Especialistas são profissionais certificados com ampla experiência no mercado imobiliário, oferecendo negociações seguras e atendimento personalizado para cada cliente.
                   </div>
 
                   <div className="space-y-4 mb-8">
